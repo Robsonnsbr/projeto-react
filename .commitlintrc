@@ -1,0 +1,2 @@
+module.exports = { extends: ["@commitlint/config-conventional"] };
+//TODO: o diretorio do git está na pasta projeto-react, então todos os arquivos tem que ser instalados lá
