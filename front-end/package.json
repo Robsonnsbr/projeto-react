@@ -2,16 +2,16 @@
     "name": "front-end",
     "version": "0.1.0",
     "private": true,
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
     "dependencies": {
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.8.2",
         "web-vitals": "^2.1.4"
-    },
-    "husky": {
-        "hooks": {
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-        }
     },
     "devDependencies": {
         "@commitlint/cli": "^17.4.4",
