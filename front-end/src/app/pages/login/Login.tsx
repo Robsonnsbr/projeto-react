@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export const Login = () => {
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState(""); //TODO: precisamos usar o useState para renderizar o componente em tela
     const [password, setPassword] = useState("");
 
     const handleEnter = () => {
