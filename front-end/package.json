@@ -8,6 +8,11 @@
         "react-router-dom": "^6.8.2",
         "web-vitals": "^2.1.4"
     },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
     "devDependencies": {
         "@commitlint/cli": "^17.4.4",
         "@commitlint/config-conventional": "^17.4.4",
