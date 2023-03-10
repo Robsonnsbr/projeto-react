@@ -24,6 +24,7 @@
         "commitizen": {
             "path": "cz-conventional-changelog"
         }
+        //teste
     },
     "scripts": {
         "start": "react-scripts start",
