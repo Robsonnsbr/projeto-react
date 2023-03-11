@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Login = () => {
     const [email, setEmail] = useState(""); //TODO: precisamos usar o useState para renderizar o componente em tela
@@ -8,6 +8,14 @@ export const Login = () => {
         console.log(email);
         console.log(password);
     };
+
+    useEffect(() => {
+        console.log(email);
+    }, [email]);
+
+    useEffect(() => {
+        console.log(password);
+    }, [password]);
 
     return (
         <div>
