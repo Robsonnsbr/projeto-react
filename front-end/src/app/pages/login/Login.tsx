@@ -1,8 +1,11 @@
-import { useEffect, useMemo, useState, useCallback, useRef } from "react";
+import { useMemo, useState, useCallback, useRef } from "react";
+
+import { ButtonLogin } from "./components/ButtonLogin";
+import { InputLogin } from "./components/InputLogin";
 
 export const Login = () => {
     const inputPasswordRef = useRef<HTMLInputElement>(null);
-    const [email, setEmail] = useState(""); //TODO: precisamos usar o useState para renderizar o componente em tela
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const emaillength = useMemo(() => {
         return email.length * 1000;
@@ -12,42 +15,30 @@ export const Login = () => {
         console.log(email);
         console.log(password);
     }, [email, password]);
-    // useEffect(() => {
-    //     console.log(email);
-    // }, [email]);
-
-    // useEffect(() => {
-    //     console.log(password);
-    // }, [password]);
 
     return (
         <div>
             <form>
-                <label>
-                    <p>Quantidade de caracteres email: {emaillength}</p>
-                    <span>Email</span>
-                    <input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        onKeyDown={(e) =>
-                            e.key === "Enter"
-                                ? inputPasswordRef.current?.focus()
-                                : undefined
-                        }
-                    />
-                </label>
-                <label>
-                    <span>Senha</span>
-                    <input
-                        ref={inputPasswordRef}
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </label>
-                <button type="button" onClick={handleEnter}>
-                    Entrar{" "}
-                </button>
+                <p>Quantidade de caracteres email: {emaillength}</p>
+                <InputLogin
+                    label="Email"
+                    value={email}
+                    onChange={(newValue) => setEmail(newValue)}
+                    onPressEnter={() => inputPasswordRef.current?.focus()}
+                />
+                <InputLogin
+                    type="password"
+                    label="Password"
+                    value={password}
+                    ref={inputPasswordRef}
+                    onChange={(newValue) => setPassword(newValue)}
+                />
+                <ButtonLogin type="button" onClick={handleEnter}>
+                    Entrar
+                </ButtonLogin>
+                <ButtonLogin type="button" onClick={handleEnter}>
+                    Cadastrar-se
+                </ButtonLogin>
             </form>
         </div>
     );
