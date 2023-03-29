@@ -1,7 +1,7 @@
 import { Api } from "../ApiConfig";
 import { ApiException } from "../ApiException";
 
-interface ITarefa {
+export interface ITarefa {
     id: number;
     title: string;
     isCompleted: boolean;
@@ -9,7 +9,7 @@ interface ITarefa {
 
 const getAll = async (): Promise<ITarefa[] | ApiException> => {
     try {
-        const { data } = await Api().get("./taferas");
+        const { data } = await Api().get("./tarefas");
         return data;
     } catch (error: any) {
         return new ApiException(
