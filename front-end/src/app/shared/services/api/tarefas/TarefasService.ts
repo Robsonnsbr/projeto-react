@@ -19,7 +19,7 @@ const getAll = async (): Promise<ITarefa[] | ApiException> => {
 };
 const getById = async (id: number): Promise<ITarefa | ApiException> => {
     try {
-        const { data } = await Api().get(`./taferas/${id}`);
+        const { data } = await Api().get(`./tarefas/${id}`);
         return data;
     } catch (error: any) {
         return new ApiException(
@@ -29,9 +29,9 @@ const getById = async (id: number): Promise<ITarefa | ApiException> => {
 };
 const create = async (
     dataToCreate: Omit<ITarefa, "id">
-): Promise<ITarefa[] | ApiException> => {
+): Promise<ITarefa | ApiException> => {
     try {
-        const { data } = await Api().post("./taferas", dataToCreate); //TODO: se aparecer algum passar tipar o post com <any>
+        const { data } = await Api().post("./tarefas", dataToCreate); //TODO: se aparecer algum passar "tipar" o post com <any>
         return data;
     } catch (error: any) {
         return new ApiException(error.message || "Erro ao criar o registro.");
@@ -40,10 +40,10 @@ const create = async (
 
 const updateById = async (
     id: number,
-    dataToUpdate: ITarefa
-): Promise<ITarefa[] | ApiException> => {
+    dataToUpdate: ITarefa //TODO: se ocorrer algum erro retornar para lista => ITarefa[]
+): Promise<ITarefa | ApiException> => {
     try {
-        const { data } = await Api().put(`./taferas/${id},`, dataToUpdate);
+        const { data } = await Api().put(`./tarefas/${id},`, dataToUpdate);
         return data;
     } catch (error: any) {
         return new ApiException(
@@ -55,8 +55,8 @@ const deleteById = async (
     id: number
 ): Promise<ITarefa | undefined | ApiException> => {
     try {
-        const { data } = await Api().delete(`./taferas/${id}`); //TODO: verificar se funciona, se não apagar e rever o final da aula 25
-        await Api().delete(`./taferas/${id}`);
+        const { data } = await Api().delete(`./tarefas/${id}`); //TODO: verificar se funciona, se não apagar e rever o final da aula 25
+        await Api().delete(`./tarefas/${id}`);
         return data;
     } catch (error: any) {
         return new ApiException(error.message || "Erro ao apagar o registro.");

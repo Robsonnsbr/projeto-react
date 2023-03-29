@@ -15,26 +15,30 @@ export const Dashboard = () => {
     }, []);
 
     const handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> =
-        useCallback((e) => {
-            if (e.key === "Enter") {
-                if (e.currentTarget.value.trim().length === 0) return;
-                const value = e.currentTarget.value;
-                e.currentTarget.value = "";
-
-                setLista((oldLista) => {
-                    if (oldLista.some((listItem) => listItem.title === value))
-                        return oldLista;
-                    return [
-                        ...oldLista,
-                        {
-                            id: oldLista.length, //TODO: utilizar o oldLista.length como id? mesmo que seja um quebra galho que sentido faz?
-                            title: value,
-                            isCompleted: false,
-                        },
-                    ];
-                });
-            }
-        }, []);
+        useCallback(
+            (e) => {
+                if (e.key === "Enter") {
+                    if (e.currentTarget.value.trim().length === 0) return;
+                    const value = e.currentTarget.value;
+                    e.currentTarget.value = "";
+                    if (lista.some((listItem) => listItem.title === value))
+                        return;
+                    TarefasService.create({
+                        title: value,
+                        isCompleted: false,
+                    }).then((result) => {
+                        if (result instanceof ApiException) {
+                            alert(result.message);
+                        } else {
+                            setLista((oldLista) => {
+                                return [...oldLista, result];
+                            });
+                        }
+                    });
+                }
+            },
+            [lista]
+        );
 
     return (
         <div>
