@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { ApiException, ITarefa, TarefasService } from "../../shared/services";
 
+<style>.teste</style>;
+
 export const Dashboard = () => {
     const [lista, setLista] = useState<ITarefa[]>([]);
 
@@ -40,6 +42,45 @@ export const Dashboard = () => {
             [lista]
         );
 
+    const handleDelete = useCallback((id: number) => {
+        TarefasService.deleteById(id).then((result) => {
+            if (result instanceof ApiException) {
+                alert(result.message);
+            } else {
+                setLista((oldLista) => {
+                    return oldLista.filter(
+                        (oldListItem) => oldListItem.id !== id
+                    );
+                });
+            }
+        });
+    }, []);
+    const handleToggleCompleted = useCallback(
+        (id: number) => {
+            const tarefaToUpdate = lista.find(
+                (tarefa: ITarefa) => tarefa.id === id
+            );
+            if (!tarefaToUpdate) return;
+
+            TarefasService.updateById(id, {
+                ...tarefaToUpdate,
+                isCompleted: !tarefaToUpdate.isCompleted,
+            }).then((result) => {
+                if (result instanceof ApiException) {
+                    alert(result.message);
+                } else {
+                    setLista((oldLista) => {
+                        return oldLista.map((oldListItem) => {
+                            if (oldListItem.id === id) return result;
+                            return oldListItem;
+                        });
+                    });
+                }
+            });
+        },
+        [lista]
+    );
+
     return (
         <div>
             <p>Lista</p>
@@ -48,31 +89,25 @@ export const Dashboard = () => {
 
             <p>{lista.filter((listItem) => listItem.isCompleted).length}</p>
 
-            <ul>
-                {lista.map((listItem) => (
-                    <li key={listItem.id}>
-                        <input
-                            type="checkbox"
-                            checked={listItem.isCompleted}
-                            onChange={() => {
-                                setLista((oldLista) => {
-                                    return oldLista.map((oldListItem) => {
-                                        const newIsCompleted =
-                                            oldListItem.title === listItem.title
-                                                ? !oldListItem.isCompleted
-                                                : oldListItem.isCompleted;
-                                        return {
-                                            ...oldListItem,
-                                            isCompleted: newIsCompleted,
-                                        };
-                                    });
-                                });
-                            }}
-                        />
-                        {listItem.title}
-                    </li>
-                ))}
-            </ul>
+            <div>
+                <ul>
+                    {lista.map((listItem) => (
+                        <li key={listItem.id}>
+                            <input
+                                type="checkbox"
+                                checked={listItem.isCompleted}
+                                onChange={() => {
+                                    handleToggleCompleted(listItem.id);
+                                }}
+                            />
+                            {listItem.title}
+                            <button onClick={() => handleDelete(listItem.id)}>
+                                APAGAR
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };

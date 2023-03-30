@@ -43,7 +43,7 @@ const updateById = async (
     dataToUpdate: ITarefa //TODO: se ocorrer algum erro retornar para lista => ITarefa[]
 ): Promise<ITarefa | ApiException> => {
     try {
-        const { data } = await Api().put(`./tarefas/${id},`, dataToUpdate);
+        const { data } = await Api().put(`./tarefas/${id}`, dataToUpdate);
         return data;
     } catch (error: any) {
         return new ApiException(
@@ -55,9 +55,8 @@ const deleteById = async (
     id: number
 ): Promise<ITarefa | undefined | ApiException> => {
     try {
-        const { data } = await Api().delete(`./tarefas/${id}`); //TODO: verificar se funciona, se não apagar e rever o final da aula 25
         await Api().delete(`./tarefas/${id}`);
-        return data;
+        return undefined;
     } catch (error: any) {
         return new ApiException(error.message || "Erro ao apagar o registro.");
     }
