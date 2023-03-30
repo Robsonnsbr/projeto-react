@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { ApiException, ITarefa, TarefasService } from "../../shared/services";
 
-<style>.teste</style>;
-
 export const Dashboard = () => {
     const [lista, setLista] = useState<ITarefa[]>([]);
 
