@@ -85,6 +85,8 @@ export const Dashboard = () => {
 
             <input onKeyDown={handleInputKeyDown} />
             <input onKeyDown={handleInputKeyDown} />
+            <input onKeyDown={handleInputKeyDown} />
+            <input onKeyDown={handleInputKeyDown} />
 
             <p>{lista.filter((listItem) => listItem.isCompleted).length}</p>
 
